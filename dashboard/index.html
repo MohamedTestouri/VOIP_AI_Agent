@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VoIP AI Engineering Workspace</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand-mark">V</div><div class="brand"><strong>VoIP AI</strong><span>Engineering Team</span></div>
+    <nav aria-label="Main navigation">
+      <a class="active" href="#overview">Overview</a><a href="#workspace">AI Workspace</a><a href="#cartography">System Cartography</a><a href="#voip-lab">VoIP Lab</a><a href="#agents">Specialists</a>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot"></span><span id="api-status">Connecting to local API…</span></div>
+  </aside>
+  <main>
+    <header class="topbar"><div><p class="eyebrow">LOCAL ENGINEERING CONSOLE</p><h1>Saylo & VoIP Control Room</h1><p class="muted">Evidence-first investigations, protocol tooling and repository cartography.</p></div><span class="local-badge">LOCAL MODE</span></header>
+    <section id="overview" class="stats-grid">
+      <article class="stat-card"><span>Repository</span><strong id="repo-status">Not configured</strong><small id="repo-detail">Set SAYLO_REPO_PATH to inspect source</small></article>
+      <article class="stat-card"><span>Specialist roles</span><strong id="agent-count">—</strong><small>Defined workflows, not simulated activity</small></article>
+      <article class="stat-card"><span>PCAP decoder</span><strong id="tshark-status">Checking…</strong><small>TShark is optional</small></article>
+      <article class="stat-card"><span>Model execution</span><strong>Disabled</strong><small>Deterministic tools only</small></article>
+    </section>
+    <section id="workspace" class="panel">
+      <div class="section-heading"><div><p class="eyebrow">TASK INTAKE</p><h2>Start an investigation</h2></div><span class="step-tag">Plan only · no source edits</span></div>
+      <form id="investigation-form" class="form-grid">
+        <label>Task title<input id="task-title" required minlength="3" maxlength="160" placeholder="Example: Yealink call forwarding does not sync"></label>
+        <label>Task type<select id="task-kind"><option value="investigation">VoIP investigation</option><option value="bug">Bug</option><option value="feature">Feature</option><option value="refactor">Refactoring</option><option value="documentation">Documentation</option><option value="security">Security review</option></select></label>
+        <label class="full-width">Context and expected outcome<textarea id="task-description" required minlength="5" rows="4" placeholder="Describe observed behavior, expected behavior, relevant devices, logs or source paths…"></textarea></label>
+        <div class="form-actions"><button type="submit" class="primary-button">Create investigation plan <span>→</span></button><span id="form-status" role="status" class="muted"></span></div>
+      </form>
+      <div id="investigation-result" class="result-block hidden"></div>
+    </section>
+    <section class="content-grid">
+      <article id="cartography" class="panel"><div class="section-heading"><div><p class="eyebrow">SOURCE-DERIVED MAP</p><h2>System cartography</h2></div><button id="refresh-inventory" class="secondary-button">Refresh</button></div><p id="cartography-summary" class="muted">Waiting for inventory…</p><pre id="mermaid-map" class="code-panel">flowchart LR
+  A[Configure source checkout] --> B[Generate evidence-backed map]</pre><div id="inventory-files" class="file-list"></div></article>
+      <article id="agents" class="panel"><div class="section-heading"><div><p class="eyebrow">SPECIALISTS</p><h2>Engineering team</h2></div></div><div id="agent-list" class="agent-list"><p class="muted">Loading roles…</p></div></article>
+    </section>
+    <section id="voip-lab" class="panel"><div class="section-heading"><div><p class="eyebrow">PROTOCOL TOOLING</p><h2>SIP message inspector</h2></div><span class="step-tag">Sensitive auth headers are omitted</span></div>
+      <div class="lab-grid"><div><label for="sip-message">Paste a SIP message</label><textarea id="sip-message" class="mono" rows="12">INVITE sip:1008@example.test SIP/2.0
+Via: SIP/2.0/UDP 192.0.2.10:5060;branch=z9hG4bK-demo
+From: <sip:1005@example.test>;tag=from-demo
+To: <sip:1008@example.test>
+Call-ID: demo-call-001@example.test
+CSeq: 1 INVITE
+Contact: <sip:1005@192.0.2.10:5060>
+Content-Type: application/sdp
+Content-Length: 101
+
+v=0
+o=- 1 1 IN IP4 192.0.2.10
+s=-
+c=IN IP4 192.0.2.10
+t=0 0
+m=audio 20000 RTP/AVP 0 8 101
+a=rtpmap:0 PCMU/8000</textarea><button id="parse-sip" class="primary-button">Parse message →</button></div><div><label>Structured result</label><pre id="sip-result" class="code-panel output-panel">Run the parser to see extracted fields and warnings.</pre></div></div>
+      <div class="pcap-row"><div><strong>Offline PCAP summary</strong><p class="muted">Optional: upload a capture to TShark for SIP-filtered frame metadata. The capture is processed locally and not saved by the API.</p></div><input id="pcap-file" type="file" accept=".pcap,.pcapng,.cap,application/vnd.tcpdump.pcap"><button id="analyze-pcap" class="secondary-button">Analyze PCAP</button></div><pre id="pcap-result" class="code-panel output-panel hidden"></pre>
+    </section>
+    <footer>Built for local engineering workflows. Generated maps and investigation plans require human review before operational use.</footer>
+  </main>
+  <script src="/static/app.js" defer></script>
+</body></html>
